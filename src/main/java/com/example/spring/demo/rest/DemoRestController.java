@@ -12,6 +12,7 @@ public class DemoRestController {
 
     @Autowired
     public DemoRestController(@Qualifier("cricketCoach") Coach myCoach) {
+        System.out.println("In constructor " + getClass().getSimpleName());
         this.myCoach = myCoach;
     }
 
