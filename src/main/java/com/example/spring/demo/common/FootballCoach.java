@@ -1,5 +1,7 @@
 package com.example.spring.demo.common;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
@@ -7,6 +9,16 @@ import org.springframework.stereotype.Component;
 public class FootballCoach implements Coach {
     public FootballCoach() {
         System.out.println("In constructor " + getClass().getSimpleName());
+    }
+
+    @PostConstruct
+    public void postConstruct() {
+        System.out.println("In post construct of " + getClass().getSimpleName());
+    }
+
+    @PreDestroy
+    public void preDestroy() {
+        System.out.println("In pre destroy of " + getClass().getSimpleName());
     }
 
     @Override
