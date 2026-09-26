@@ -1,5 +1,6 @@
-package com.example.spring.demo;
+package com.example.spring.demo.rest;
 
+import com.example.spring.common.Coach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -8,9 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class DemoRestController {
     Coach myCoach;
 
-    @Autowired // optional in case single dep?
-    public DemoRestController(Coach coach) {
-        myCoach = coach;
+    @Autowired
+    public void setCoach(Coach myCoach) {
+        this.myCoach = myCoach;
     }
 
     @GetMapping("/dailyworkout")
