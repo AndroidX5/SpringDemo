@@ -1,11 +1,11 @@
 package com.example.spring.demo.rest;
 
 import com.example.spring.demo.entity.Student;
+import com.example.spring.demo.entity.StudentNotFoundErrorResponse;
 import jakarta.annotation.PostConstruct;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,11 +24,20 @@ public class DemoRestController {
 
     @GetMapping("/students/{studentId}")
     public Student getStudent(@PathVariable int studentId) {
+        if (studentId >= students.size() || studentId < 0) {
+            throw new StudentNotFountException("Student not found - " + studentId);
+        }
         return students.get(studentId);
     }
 
     @GetMapping("/students")
     public List<Student> getStudents() {
         return students;
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<StudentNotFoundErrorResponse> handleException(StudentNotFountException ex) {
+        StudentNotFoundErrorResponse response = new StudentNotFoundErrorResponse(404, ex.getMessage(), System.currentTimeMillis());
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 }
