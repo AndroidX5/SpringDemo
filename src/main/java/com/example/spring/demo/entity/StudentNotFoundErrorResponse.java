@@ -1,11 +1,9 @@
 package com.example.spring.demo.entity;
 
 public class StudentNotFoundErrorResponse {
-    int statusCode;
-
-    String message;
-
-    long timestamp;
+    private int statusCode;
+    private String message;
+    private long timestamp;
 
 
     public StudentNotFoundErrorResponse() {}

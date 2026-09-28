@@ -34,10 +34,4 @@ public class DemoRestController {
     public List<Student> getStudents() {
         return students;
     }
-
-    @ExceptionHandler
-    public ResponseEntity<StudentNotFoundErrorResponse> handleException(StudentNotFountException ex) {
-        StudentNotFoundErrorResponse response = new StudentNotFoundErrorResponse(404, ex.getMessage(), System.currentTimeMillis());
-        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
-    }
 }
