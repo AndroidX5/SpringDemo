@@ -16,32 +16,12 @@ public class SpringSecurityConfig {
 
     @Bean
     public UserDetailsManager userDetails(DataSource dataSource) {
-        return new JdbcUserDetailsManager(dataSource);
-    }
+        JdbcUserDetailsManager jdbcUserDetailsManager = new JdbcUserDetailsManager(dataSource);
+        jdbcUserDetailsManager.setUsersByUsernameQuery("select user_id, pw, active from members where user_id=?");
+        jdbcUserDetailsManager.setAuthoritiesByUsernameQuery("select user_id, role from roles where user_id=?");
 
-//    @Bean
-//    public InMemoryUserDetailsManager userDetails() {
-//        UserDetails sachin = User.builder()
-//                .username("sachin")
-//                .password("{noop}sachin")
-//                .roles("EMPLOYEE")
-//                .build();
-//
-//        UserDetails megha = User.builder()
-//                .username("megha")
-//                .password("{noop}megha")
-//                .roles("EMPLOYEE", "MANAGER")
-//                .build();
-//
-//        UserDetails admin = User.builder()
-//                .username("admin")
-//                .password("{noop}admin")
-//                .roles("EMPLOYEE", "MANAGER", "ADMIN")
-//                .build();
-//
-//
-//        return new InMemoryUserDetailsManager(sachin, megha, admin);
-//    }
+        return jdbcUserDetailsManager;
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
