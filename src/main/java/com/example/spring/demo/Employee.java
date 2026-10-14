@@ -1,7 +1,7 @@
-package com.example.spring.demo.entity;
+package com.example.spring.demo;
 
-import jakarta.annotation.Generated;
 import jakarta.persistence.*;
+import org.hibernate.annotations.Generated;
 
 @Entity
 @Table(name = "employee")
@@ -21,7 +21,8 @@ public class Employee {
     @Column(name = "email")
     private String email;
 
-    public Employee() {}
+    public Employee() {
+    }
 
     public Employee(String lastName, String firstName, String email) {
         this.lastName = lastName;
@@ -59,5 +60,15 @@ public class Employee {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }
